@@ -1,0 +1,35 @@
+@import "_reset.scss"
+
+.container
+  height: 100vh
+  background-color: #fff
+
+.root
+  width: 1000px
+  height: 200px
+  margin: 50px auto
+
+.table
+  font-family: Arial, Helvetica, sans-serif
+  text-align: left
+  border-collapse: separate;
+  border-spacing: 5px;
+  background: #ECE9E0
+  color: #656665
+  border: 16px solid #ECE9E0
+  border-radius: 20px
+  margin: 0 auto
+  &__head
+    font-weight: bold
+    font-size: 18px
+    padding: 10px
+  &__cell
+    background: #F5D7BF
+    padding: 10px
+    &-button-edit,
+    &-button-remove
+      display: inline
+      &:first-child
+        margin-right: 10px
+      &:hover
+        cursor: pointer
