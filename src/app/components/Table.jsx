@@ -13,6 +13,7 @@ class Table extends React.PureComponent {
           author: 'oleg',
           cost: '100',
           year: 2020,
+          status: 'В наличии',
         },
         {
           id: 1,
@@ -20,6 +21,7 @@ class Table extends React.PureComponent {
           author: 'ivan',
           cost: '200',
           year: 2010,
+          status: 'Нет в наличии',
         },
       ],
     };
@@ -31,6 +33,12 @@ class Table extends React.PureComponent {
     this.setState({ books: newBooks });
   }
 
+  onEdit = (changedBook) => {
+    const { books } = this.state;
+    const filteredBooks = books.filter(({ id }) => id !== changedBook.id);
+    this.setState({ books: [...filteredBooks, changedBook] });
+  };
+
   render() {
     const { books } = this.state;
     return (
@@ -41,13 +49,14 @@ class Table extends React.PureComponent {
             <th className='table__head'>Автор</th>
             <th className='table__head'>Стоимость</th>
             <th className='table__head'>Дата выпуска</th>
+            <th className='table__head'>Статус</th>
             <th className='table__head'>Действия</th>
           </tr>
         </thead>
         <tbody>
-          {books.map((book) => (
+          {books.sort((a, b) => a.id - b.id).map((book) => (
             <React.Fragment key={book.id}>
-              <Row book={book} onRemove={this.onRemove} />
+              <Row book={book} onRemove={this.onRemove} onEditBook={this.onEdit} />
             </React.Fragment>
           ))}
         </tbody>
