@@ -14,14 +14,6 @@ class Row extends React.PureComponent {
     };
   }
 
-  onEdit = () => {
-    this.setState({ modalShow: true });
-  }
-
-  updateBookData = (value) => {
-    this.setState({ book: { ...value } });
-  }
-
   componentDidUpdate(_prevProps, prevState) {
     if (prevState.book !== this.state.book) {
       const { book } = this.state;
@@ -29,6 +21,14 @@ class Row extends React.PureComponent {
 
       onEditBook(book);
     }
+  }
+
+  onEdit = () => {
+    this.setState({ modalShow: true });
+  }
+
+  updateBookData = (value) => {
+    this.setState({ book: { ...value } });
   }
 
   onClose = () => {
@@ -40,7 +40,7 @@ class Row extends React.PureComponent {
     const { modalShow } = this.state;
     const editModal = modalShow ? (
       <Portal>
-        <Edit book={book} onUpdate={this.updateBookData} onClose={this.onClose}/>
+        <Edit book={book} onUpdate={this.updateBookData} onClose={this.onClose} />
       </Portal>
     ) : null;
 
