@@ -47,7 +47,7 @@ class Table extends React.PureComponent {
           <tr className='table__row'>
             <th className='table__head'>Название</th>
             <th className='table__head'>Автор</th>
-            <th className='table__head'>Стоимость</th>
+            <th className='table__head'>Стоимость(руб.)</th>
             <th className='table__head'>Дата выпуска</th>
             <th className='table__head'>Статус</th>
             <th className='table__head'>Действия</th>
