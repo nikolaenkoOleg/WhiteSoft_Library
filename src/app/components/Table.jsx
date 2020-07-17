@@ -93,5 +93,3 @@ class Table extends React.PureComponent {
 }
 
 export default Table;
-
-// доделать модалки: поправить поля ввода, сделать их обязательными, чтобы пустые книги не добавляли

@@ -39,23 +39,23 @@ class Add extends React.PureComponent {
         <form className='modal__form' onSubmit={this.onSubmit()}>
           <div className="modal__form-group">
             <label htmlFor='title' className='modal__label'>Название</label>
-            <input type="text" className='modal__input' id='title' value={title} onChange={this.onChange('title')}/>
+            <input type="text" className='modal__input' id='title' required value={title} onChange={this.onChange('title')}/>
           </div>
           <div className="modal__form-group">
             <label htmlFor='author' className='modal__label'>Автор</label>
-            <input type="text" className='modal__input' id='author' value={author} onChange={this.onChange('author')}/>
+            <input type="text" className='modal__input' id='author' required value={author} onChange={this.onChange('author')}/>
           </div>
           <div className="modal__form-group">
             <label htmlFor='cost' className='modal__label'>Стоимость(руб.)</label>
-            <input type="number" className='modal__input' id='cost' value={cost} onChange={this.onChange('cost')}/>
+            <input type="number" className='modal__input' id='cost' required value={cost} onChange={this.onChange('cost')}/>
           </div>
           <div className="modal__form-group">
             <label htmlFor='year' className='modal__label'>Дата выпуска</label>
-            <input type="number" className='modal__input' id='year' value={year} onChange={this.onChange('year')}/>
+            <input type="number" className='modal__input' id='year' required value={year} onChange={this.onChange('year')}/>
           </div>
           <div className="modal__form-group">
             <label htmlFor='status' className='modal__label'>Статус</label>
-            <select className='modal__input' id='status' value={status} onChange={this.onChange('status')}>
+            <select className='modal__input' id='status' required value={status} onChange={this.onChange('status')}>
               <option value='В наличии'>В наличии</option>
               <option value='Нет в наличии'>Нет в наличии</option>
             </select>
