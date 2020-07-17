@@ -1,13 +1,20 @@
 import React from 'react';
-import { render } from 'react-dom';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from 'react-router-dom';
 
 import Table from './Table.jsx';
+import Other from './Other.jsx';
 
-export default () => {
-  const root = document.querySelector('.root');
+const App = () => (
+  <Router>
+    <Switch>
+      <Route exact path="/" component={Table} />
+      <Route component={Other} />
+    </Switch>
+  </Router>
+);
 
-  render(
-    <Table />,
-    root,
-  );
-};
+export default App;

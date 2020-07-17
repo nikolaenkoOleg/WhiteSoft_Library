@@ -26,10 +26,11 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './src/index.html',
+      template: `${__dirname}/src/index.html`,
     }),
   ],
   devServer: {
     port: 7700,
+    historyApiFallback: true,
   },
 };

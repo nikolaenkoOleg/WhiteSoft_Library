@@ -1,7 +1,7 @@
 install: install-deps
 
-watch:
-	npx webpack-dev-server
+run:
+	npx webpack-dev-server  --open  --history-api-fallback
 
 install-deps:
 	npm ci
