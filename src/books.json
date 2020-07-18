@@ -1,0 +1,18 @@
+[
+  {
+    "id": 0,
+    "title": "123",
+    "author": "oleg",
+    "cost": 100,
+    "year": 2020,
+    "status": "В наличии"
+  },
+  {
+    "id": 1,
+    "title": "1234",
+    "author": "ivan",
+    "cost": 200,
+    "year": 2010,
+    "status": "Нет в наличии'"
+  }
+]

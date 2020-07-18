@@ -1,34 +1,31 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
+import { connect } from 'react-redux';
 
 import Edit from './modals/Edit.jsx';
 import Portal from './modals/Portal.jsx';
+import { deleteBookAction } from '../actions';
+
+const mapDispathToProps = {
+  deleteBook: deleteBookAction,
+};
 
 class Row extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
       modalShow: false,
-      book: {},
     };
   }
 
-  componentDidUpdate(_prevProps, prevState) {
-    if (prevState.book !== this.state.book) {
-      const { book } = this.state;
-      const { onEditBook } = this.props;
-
-      onEditBook(book);
-    }
+  onRemoveBook = (id) => () => {
+    const { deleteBook } = this.props;
+    deleteBook({ id });
   }
 
   onEdit = () => {
     this.setState({ modalShow: true });
-  }
-
-  updateBookData = (value) => {
-    this.setState({ book: { ...value } });
   }
 
   onClose = () => {
@@ -36,11 +33,11 @@ class Row extends React.PureComponent {
   }
 
   render() {
-    const { book, onRemove } = this.props;
+    const { book } = this.props;
     const { modalShow } = this.state;
     const editModal = modalShow ? (
       <Portal>
-        <Edit book={book} onUpdate={this.updateBookData} onClose={this.onClose} />
+        <Edit book={book} onClose={this.onClose} />
       </Portal>
     ) : null;
 
@@ -55,7 +52,7 @@ class Row extends React.PureComponent {
         <div className='table__cell-button-edit' onClick={this.onEdit}>
           <FontAwesomeIcon icon={faEdit} />
         </div>
-        <div className='table__cell-button-remove' onClick={onRemove(book.id)}>
+        <div className='table__cell-button-remove' onClick={this.onRemoveBook(book.id)}>
           <FontAwesomeIcon icon={faTrash} />
         </div>
         </td>
@@ -65,4 +62,4 @@ class Row extends React.PureComponent {
   }
 }
 
-export default Row;
+export default connect(null, mapDispathToProps)(Row);

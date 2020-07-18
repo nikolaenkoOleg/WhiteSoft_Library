@@ -1,4 +1,11 @@
 import React from 'react';
+import { connect } from 'react-redux';
+
+import { addBookAction } from '../../actions';
+
+const mapDispatchToProps = {
+  addBook: addBookAction,
+};
 
 class Add extends React.PureComponent {
   constructor(props) {
@@ -8,7 +15,7 @@ class Add extends React.PureComponent {
       author: '',
       cost: '',
       year: '',
-      status: '',
+      status: 'В наличии',
     };
   }
 
@@ -19,8 +26,9 @@ class Add extends React.PureComponent {
 
   onSubmit = () => (e) => {
     e.preventDefault();
-    const { onAdding, onClose } = this.props;
-    onAdding(this.state);
+    const { onClose, addBook } = this.props;
+    const newBook = this.state;
+    addBook({ newBook });
     onClose();
   }
 
@@ -67,4 +75,4 @@ class Add extends React.PureComponent {
   }
 }
 
-export default Add;
+export default connect(null, mapDispatchToProps)(Add);
