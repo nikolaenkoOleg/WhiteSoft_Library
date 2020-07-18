@@ -66,5 +66,3 @@ class Table extends React.PureComponent {
 }
 
 export default connect(mapStateToProps)(Table);
-
-//добавить кнопки закрытия модалок

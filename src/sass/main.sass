@@ -44,6 +44,16 @@
     height: 100%
     opacity: 0.5
     z-index: 1
+  &__header
+    display: flex
+    justify-content: space-between
+  &__close
+    font-size: 20px
+    transition: all .25s ease
+    &:hover
+      cursor: pointer
+      color: #000
+      transform: rotate(90deg);
   &__body
     position: fixed
     top: 20%
@@ -88,6 +98,9 @@
     background: #F5D7BF
     border: 1px solid #c9b9ab
     border-radius: 5px
+    transition: all .5s ease
+    &:hover
+      border: none
 
 .modal-hide
   display: none
@@ -116,3 +129,8 @@
   font-size: 50px
   font-family: Arial, Helvetica, sans-serif
   text-align: center
+
+.button-group
+  display: flex
+  width: 250px
+  justify-content: space-between

@@ -1,5 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 
 import { addBookAction } from '../../actions';
 
@@ -32,6 +34,12 @@ class Add extends React.PureComponent {
     onClose();
   }
 
+  onCancel = (e) => {
+    e.preventDefault();
+    const { onClose } = this.props;
+    onClose();
+  }
+
   render() {
     const {
       title,
@@ -43,7 +51,10 @@ class Add extends React.PureComponent {
 
     return (
       <>
-        <h3 className='modal__title'>Добавление новой книги</h3>
+        <div className="modal__header">
+          <h3 className='modal__title'>Добавление новой книги</h3>
+          <FontAwesomeIcon icon={faTimesCircle} className='modal__close' onClick={this.onCancel} />
+        </div>
         <form className='modal__form' onSubmit={this.onSubmit()}>
           <div className="modal__form-group">
             <label htmlFor='title' className='modal__label'>Название</label>
@@ -68,7 +79,10 @@ class Add extends React.PureComponent {
               <option value='Нет в наличии'>Нет в наличии</option>
             </select>
           </div>
-          <input type='submit' value='Добавить' className='modal__submit' />
+          <div className="button-group">
+            <input type='submit' value='Добавить' className='modal__submit' />
+            <input type='submit' value='Отмена' className='modal__submit' onClick={this.onCancel} />
+          </div>
         </form>
       </>
     );
