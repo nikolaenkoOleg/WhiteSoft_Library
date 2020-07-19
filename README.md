@@ -1,5 +1,7 @@
 # WhiteSoft_Library
 
+[![Github Actions Status](https://github.com/nikolaenkoOleg/WhiteSoft_Library/workflows/Node%20CI/badge.svg)](https://github.com/nikolaenkoOleg/WhiteSoft_Library/actions)
+
 ### Install
 
 ```sh
@@ -16,5 +18,4 @@ $ make run
 
 ```sh
 $ make build
-# open http://localhost:7700
 ```
