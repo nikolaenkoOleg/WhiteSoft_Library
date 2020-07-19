@@ -28,8 +28,8 @@ const Main = () => {
           status: 'Нет в наличии',
         },
       ],
-      changeBookState: 'none',
-      deleteBookState: 'none',
+      editBookState: 'none',
+      deleteookState: 'none',
       addBookState: 'none',
     },
   });
