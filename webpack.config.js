@@ -7,12 +7,18 @@ module.exports = {
     path: `${__dirname}/dist`,
   },
   mode: 'development',
+  resolve: {
+    extensions: ['.ts', '.tsx'],
+  },
   module: {
     rules: [
       {
-        test: /\.jsx$/,
+        test: /\.ts(x?)$/,
         exclude: /node_modules/,
-        use: ['babel-loader', 'eslint-loader'],
+        use: [
+          { loader: 'ts-loader' },
+          { loader: 'babel-loader' },
+        ],
       },
       {
         test: /\.s[ac]ss$/i,

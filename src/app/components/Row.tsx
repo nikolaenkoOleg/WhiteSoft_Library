@@ -1,5 +1,5 @@
-import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import * as React from 'react';
+import { FontAwesomeIcon, Props } from '@fortawesome/react-fontawesome';
 import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
 import { connect } from 'react-redux';
 
@@ -11,8 +11,12 @@ const mapDispathToProps = {
   deleteBook: deleteBookAction,
 };
 
-class Row extends React.PureComponent {
-  constructor(props) {
+interface State { 
+  modalShow: boolean;
+};
+
+class Row extends React.PureComponent<{}, State> {
+  constructor(props: Props) {
     super(props);
     this.state = {
       modalShow: false,
