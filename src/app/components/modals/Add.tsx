@@ -1,24 +1,17 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 
-import { changeBookAction } from '../../actions';
 
-const mapDispatchToProps = {
-  changeBook: changeBookAction,
-};
-
-class Edit extends React.PureComponent {
+class Add extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      id: this.props.book.id,
-      title: this.props.book.title,
-      author: this.props.book.author,
-      cost: this.props.book.cost,
-      year: this.props.book.year,
-      status: this.props.book.status,
+      title: '',
+      author: '',
+      cost: '',
+      year: '',
+      status: 'В наличии',
     };
   }
 
@@ -29,9 +22,9 @@ class Edit extends React.PureComponent {
 
   onSubmit = () => (e) => {
     e.preventDefault();
-    const { onClose, changeBook } = this.props;
-    const newBook = { ...this.state };
-    changeBook({ newBook });
+    const { onClose, addBook } = this.props;
+    const newBook = this.state;
+    addBook({ newBook });
     onClose();
   }
 
@@ -53,7 +46,7 @@ class Edit extends React.PureComponent {
     return (
       <>
         <div className="modal__header">
-          <h3 className='modal__title'>Редактирование книги</h3>
+          <h3 className='modal__title'>Добавление новой книги</h3>
           <FontAwesomeIcon icon={faTimesCircle} className='modal__close' onClick={this.onCancel} />
         </div>
         <form className='modal__form' onSubmit={this.onSubmit()}>
@@ -82,7 +75,7 @@ class Edit extends React.PureComponent {
           <div className="modal__form-group">
             <label htmlFor='cost' className='modal__label'>Стоимость(руб.)</label>
             <input
-              type="text"
+              type="number"
               className='modal__input'
               id='cost'
               required
@@ -109,7 +102,7 @@ class Edit extends React.PureComponent {
             </select>
           </div>
           <div className="button-group">
-            <input type='submit' value='Изменить' className='modal__submit' />
+            <input type='submit' value='Добавить' className='modal__submit' />
             <input type='submit' value='Отмена' className='modal__submit' onClick={this.onCancel} />
           </div>
         </form>
@@ -118,4 +111,4 @@ class Edit extends React.PureComponent {
   }
 }
 
-export default connect(null, mapDispatchToProps)(Edit);
+export default Add;

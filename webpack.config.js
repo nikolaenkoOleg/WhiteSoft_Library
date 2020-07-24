@@ -8,7 +8,7 @@ module.exports = {
   },
   mode: 'development',
   resolve: {
-    extensions: ['.ts', '.tsx'],
+    extensions: ['.ts', '.tsx', '.js', '.jsx'],
   },
   module: {
     rules: [
@@ -17,8 +17,12 @@ module.exports = {
         exclude: /node_modules/,
         use: [
           { loader: 'ts-loader' },
-          { loader: 'babel-loader' },
         ],
+      },
+      {
+        enforce: 'pre',
+        test: /\.js$/,
+        loader: 'source-map-loader',
       },
       {
         test: /\.s[ac]ss$/i,
@@ -29,6 +33,10 @@ module.exports = {
         ],
       },
     ],
+  },
+  externals: {
+    react: 'React',
+    'react-dom': 'ReactDOM',
   },
   plugins: [
     new HtmlWebpackPlugin({

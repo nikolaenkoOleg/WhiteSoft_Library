@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 import {
   BrowserRouter as Router,
@@ -6,8 +6,8 @@ import {
   Route,
 } from 'react-router-dom';
 
-import Table from './Table.jsx';
-import Other from './Other.jsx';
+import Table from './Table.js';
+import Other from './Other.js';
 
 const App = () => (
   <Router>

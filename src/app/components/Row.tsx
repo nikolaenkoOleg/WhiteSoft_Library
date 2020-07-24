@@ -1,15 +1,9 @@
 import * as React from 'react';
 import { FontAwesomeIcon, Props } from '@fortawesome/react-fontawesome';
 import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
-import { connect } from 'react-redux';
 
-import Edit from './modals/Edit.jsx';
+import Edit from './modals/Edit.js';
 import Portal from './modals/Portal.jsx';
-import { deleteBookAction } from '../actions';
-
-const mapDispathToProps = {
-  deleteBook: deleteBookAction,
-};
 
 interface State { 
   modalShow: boolean;
@@ -66,4 +60,4 @@ class Row extends React.PureComponent<{}, State> {
   }
 }
 
-export default connect(null, mapDispathToProps)(Row);
+export default Row;

@@ -1,18 +1,18 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import * as React from 'react';
 
 import Row from './Row.jsx';
 import Add from './modals/Add.jsx';
 import Portal from './modals/Portal.jsx';
 
-const mapStateToProps = (state) => {
-  const { books } = state;
+interface State {
+  modalShow: boolean;
+}
 
-  const sortedBooks = books.slice().sort((a, b) => a.id - b.id);
-  return { books: sortedBooks };
-};
+interface Props {
+  books: Array<object>
+}
 
-class Table extends React.PureComponent {
+class Table extends React.PureComponent<{}, State> {
   constructor(props) {
     super(props);
     this.state = {
@@ -31,7 +31,7 @@ class Table extends React.PureComponent {
 
   render() {
     const { modalShow } = this.state;
-    const { books } = this.props;
+    const { books } = this.props.store;
     const addingModal = modalShow ? (
       <Portal>
         <Add onClose={this.onClose}/>
@@ -65,4 +65,4 @@ class Table extends React.PureComponent {
   }
 }
 
-export default connect(mapStateToProps)(Table);
+export default Table;
