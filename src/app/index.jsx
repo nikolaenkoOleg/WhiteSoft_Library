@@ -1,14 +1,16 @@
-import { render } from 'react-dom';
 import React from 'react';
+import { render } from 'react-dom';
 import { Provider } from 'mobx-react';
 
 import App from './components/App.jsx';
-import store from './store/index.js';
+import BooksStore from './store';
+
+const store = new BooksStore();
 
 export default () => {
   render(
-    <Provider>
-      <App store={store}/>,
+    <Provider store={store}>
+      <App/>
     </Provider>,
     document.querySelector('.root'),
   );

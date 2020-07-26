@@ -1,7 +1,6 @@
-import * as React from 'react';
+import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
-
 
 class Edit extends React.PureComponent {
   constructor(props) {

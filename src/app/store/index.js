@@ -1,6 +1,6 @@
 import { observable, action } from 'mobx';
 
-class BooksStore {
+export default class BooksStore {
   @observable books = [
     {
       id: 0,
@@ -36,7 +36,3 @@ class BooksStore {
     this.books = this.books.filter((book) => book.id !== id);
   }
 }
-
-const store = new BooksStore();
-
-export default store;

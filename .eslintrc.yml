@@ -19,6 +19,8 @@ settings:
   import/resolver:
     - node
     - webpack
+  react:
+    version: detect
 
 rules:
   no-console: 0
