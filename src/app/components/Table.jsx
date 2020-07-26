@@ -1,18 +1,13 @@
-import * as React from 'react';
+import React from 'react';
+import { observer, inject } from 'mobx-react';
 
 import Row from './Row.jsx';
 import Add from './modals/Add.jsx';
 import Portal from './modals/Portal.jsx';
 
-interface State {
-  modalShow: boolean;
-}
-
-interface Props {
-  books: Array<object>
-}
-
-class Table extends React.PureComponent<{}, State> {
+@inject('BooksStore')
+@observer
+class Table extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -31,7 +26,8 @@ class Table extends React.PureComponent<{}, State> {
 
   render() {
     const { modalShow } = this.state;
-    const { books } = this.props.store;
+    console.log(this.props.store);
+    const { books } = this.props.BooksStore;
     const addingModal = modalShow ? (
       <Portal>
         <Add onClose={this.onClose}/>

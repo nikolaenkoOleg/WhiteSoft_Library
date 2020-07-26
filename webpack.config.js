@@ -1,28 +1,27 @@
+require('@babel/polyfill');
+const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: `${__dirname}/src/js/index.js`,
+  entry: path.resolve(__dirname, 'src/js/index.js'),
   output: {
     filename: 'bundle.js',
-    path: `${__dirname}/dist`,
+    path: path.resolve(__dirname, 'dist'),
   },
-  mode: 'development',
+  mode: process.env.NODE_ENV || 'development',
   resolve: {
+    modules: [path.resolve(__dirname, 'src'), 'node_modules'],
     extensions: ['.ts', '.tsx', '.js', '.jsx'],
   },
   module: {
     rules: [
       {
-        test: /\.ts(x?)$/,
+        test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: [
-          { loader: 'ts-loader' },
+          { loader: 'babel-loader' },
+          { loader: 'eslint-loader' },
         ],
-      },
-      {
-        enforce: 'pre',
-        test: /\.js$/,
-        loader: 'source-map-loader',
       },
       {
         test: /\.s[ac]ss$/i,
@@ -34,16 +33,17 @@ module.exports = {
       },
     ],
   },
-  externals: {
-    react: 'React',
-    'react-dom': 'ReactDOM',
-  },
+  // externals: {
+  //   react: 'React',
+  //   'react-dom': 'ReactDOM',
+  // },
   plugins: [
     new HtmlWebpackPlugin({
       template: `${__dirname}/src/index.html`,
     }),
   ],
   devServer: {
+    contentBase: path.join(__dirname, 'src'),
     port: 7700,
     historyApiFallback: true,
   },

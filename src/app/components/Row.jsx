@@ -1,16 +1,12 @@
 import * as React from 'react';
-import { FontAwesomeIcon, Props } from '@fortawesome/react-fontawesome';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
 
-import Edit from './modals/Edit.js';
+import Edit from './modals/Edit.jsx';
 import Portal from './modals/Portal.jsx';
 
-interface State { 
-  modalShow: boolean;
-};
-
-class Row extends React.PureComponent<{}, State> {
-  constructor(props: Props) {
+class Row extends React.PureComponent {
+  constructor(props) {
     super(props);
     this.state = {
       modalShow: false,
