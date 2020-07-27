@@ -11,8 +11,9 @@ import Portal from './modals/Portal.jsx';
 
 class Row extends React.PureComponent {
   clickHandler = () => {
-    const { showEditModal } = this.props.store.uiStore;
-    showEditModal();
+    const { showEditModalById } = this.props.store.uiStore;
+    const { id } = this.props.book;
+    showEditModalById(id);
   }
 
   onRemoveBook = () => {
@@ -21,8 +22,8 @@ class Row extends React.PureComponent {
 
   render() {
     const { book } = this.props;
-    const { editModalIsShow } = this.props.store.uiStore;
-    const editModal = editModalIsShow ? (
+    const { booksStateById } = this.props.store.uiStore;
+    const editModal = booksStateById[book.id].edit ? (
       <Portal>
         <Edit book={book}/>
       </Portal>

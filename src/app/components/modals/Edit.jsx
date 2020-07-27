@@ -55,16 +55,24 @@ class Edit extends React.PureComponent {
   onSubmit = () => (e) => {
     e.preventDefault();
     const { id } = this.props.book;
-    const { hideEditModal, activateUserRequest, disableUserRequest } = this.props.store.uiStore;
+    const {
+      hideEditModalById,
+      activateUserRequest,
+      disableUserRequest,
+    } = this.props.store.uiStore;
     const { editBook } = this.props.store.booksStore;
-    const newBook = this.bookStore.getBook();
-    editBook({ id, ...newBook }, hideEditModal, activateUserRequest, disableUserRequest);
+    const book = this.bookStore.getBook();
+    const editedBook = {
+      id,
+      ...book,
+    };
+    editBook(editedBook, hideEditModalById, activateUserRequest, disableUserRequest);
   }
 
   onCancel = () => {
-    const { hideEditModalbyId } = this.props.store.uiStore;
+    const { hideEditModalById } = this.props.store.uiStore;
     const { id } = this.props.book;
-    hideEditModalbyId(id);
+    hideEditModalById(id);
   }
 
   render() {
@@ -74,7 +82,7 @@ class Edit extends React.PureComponent {
       cost,
       year,
       status,
-    } = this.props.book;
+    } = this.bookStore;
 
     return (
       <>

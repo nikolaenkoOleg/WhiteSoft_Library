@@ -39,11 +39,16 @@ class Add extends React.PureComponent {
   onSubmit = (e) => {
     e.preventDefault();
     const { addBook } = this.props.store.booksStore;
-    const { hideAddModal, activateUserRequest, disableUserRequest } = this.props.store.uiStore;
+    const {
+      hideAddModal,
+      activateUserRequest,
+      disableUserRequest,
+      addBookState,
+    } = this.props.store.uiStore;
     const { getBook } = this.bookStore;
     const newBook = getBook();
 
-    addBook(newBook, hideAddModal, activateUserRequest, disableUserRequest);
+    addBook(newBook, hideAddModal, activateUserRequest, disableUserRequest, addBookState);
   }
 
   onCancel = () => {
@@ -58,7 +63,7 @@ class Add extends React.PureComponent {
       cost,
       year,
       status,
-    } = this.props.book;
+    } = this.bookStore;
 
     return (
       <>

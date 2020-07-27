@@ -28,25 +28,25 @@ export default class BooksStore {
     },
   ];
 
-  @action addBook = (newBook, closeModal, activateAddRequest, disableAddRequest) => {
+  @action addBook = (newBook, closeModal, activateAddRequest, disableAddRequest, addBookState) => {
     const newBookId = this.books[this.books.length - 1].id + 1;
     activateAddRequest();
     setTimeout(() => {
+      addBookState(newBookId);
       this.books.push({ id: newBookId, ...newBook });
       closeModal();
       disableAddRequest();
     }, 2000);
   }
 
-  @action editBook = (newBook, closeModal, activateEditRequest, disableEditRequest) => {
+  @action editBook = (newBook, hideEditModalById, activateEditRequest, disableEditRequest) => {
     activateEditRequest();
-    const currentBookId = newBook;
+    const currentBookId = newBook.id;
     setTimeout(() => {
-      this.books
-        .filter((book) => book.id !== currentBookId)
-        .push(newBook)
-        .sort((a, b) => a.id - b.id);
-      closeModal();
+      this.books = this.books.filter((book) => book.id !== currentBookId);
+      this.books.push(newBook);
+      this.books = this.books.splice('').sort((a, b) => a.id - b.id);
+      hideEditModalById(currentBookId);
       disableEditRequest();
     }, 2000);
   }
