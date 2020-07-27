@@ -3,9 +3,9 @@ import { render } from 'react-dom';
 import { Provider } from 'mobx-react';
 
 import App from './components/App.jsx';
-import BooksStore from './store';
+import MainStore from './stores';
 
-const store = new BooksStore();
+const store = new MainStore();
 
 export default () => {
   render(

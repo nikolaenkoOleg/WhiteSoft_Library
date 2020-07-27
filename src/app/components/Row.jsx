@@ -1,37 +1,30 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
+import { observer, inject } from 'mobx-react';
 
 import Edit from './modals/Edit.jsx';
 import Portal from './modals/Portal.jsx';
 
+@inject('store')
+@observer
+
 class Row extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      modalShow: false,
-    };
+  clickHandler = () => {
+    const { showEditModal } = this.props.store.uiStore;
+    showEditModal();
   }
 
-  onRemoveBook = (id) => () => {
-    const { deleteBook } = this.props;
-    deleteBook({ id });
-  }
+  onRemoveBook = () => {
 
-  onEdit = () => {
-    this.setState({ modalShow: true });
-  }
-
-  onClose = () => {
-    this.setState({ modalShow: false });
   }
 
   render() {
     const { book } = this.props;
-    const { modalShow } = this.state;
-    const editModal = modalShow ? (
+    const { editModalIsShow } = this.props.store.uiStore;
+    const editModal = editModalIsShow ? (
       <Portal>
-        <Edit book={book} onClose={this.onClose} />
+        <Edit id={book.id}/>
       </Portal>
     ) : null;
 
@@ -43,7 +36,7 @@ class Row extends React.PureComponent {
         <td className='table__cell'>{book.year}</td>
         <td className='table__cell'>{book.status}</td>
         <td className='table__cell'>
-        <div className='table__cell-button-edit' onClick={this.onEdit}>
+        <div className='table__cell-button-edit' onClick={this.clickHandler}>
           <FontAwesomeIcon icon={faEdit} />
         </div>
         <div className='table__cell-button-remove' onClick={this.onRemoveBook(book.id)}>

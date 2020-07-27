@@ -9,28 +9,18 @@ import Portal from './modals/Portal.jsx';
 @observer
 
 class Table extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      modalShow: false,
-    };
-  }
-
-  onAdd = (e) => {
+  ckickHandler = (e) => {
     e.preventDefault();
-    this.setState({ modalShow: true });
-  }
-
-  onClose = () => {
-    this.setState({ modalShow: false });
+    const { showAddModal } = this.props.store.uiStore;
+    showAddModal();
   }
 
   render() {
-    const { modalShow } = this.state;
-    const { books } = this.props.store;
-    const addingModal = modalShow ? (
+    const { books } = this.props.store.booksStore;
+    const { addModalIsShow } = this.props.store.uiStore;
+    const addingModal = addModalIsShow ? (
       <Portal>
-        <Add onClose={this.onClose}/>
+        <Add />
       </Portal>
     ) : null;
     return (
@@ -49,12 +39,12 @@ class Table extends React.PureComponent {
           <tbody>
             {books.map((book) => (
               <React.Fragment key={book.id}>
-                <Row book={book} />
+                <Row book={book} modals={this.uiStore}/>
               </React.Fragment>
             ))}
           </tbody>
         </table>
-      <a href="#" className="add" onClick={this.onAdd}>Добавить книгу</a>
+      <a href="#" className="add" onClick={this.ckickHandler}>Добавить книгу</a>
       {addingModal}
       </>
     );

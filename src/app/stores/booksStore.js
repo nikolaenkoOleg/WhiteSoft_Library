@@ -28,8 +28,27 @@ export default class BooksStore {
     },
   ];
 
-  @action addBook = (book) => {
-    this.books.push(book);
+  @action addBook = (newBook, closeModal, activateAddRequest, disableAddRequest) => {
+    const newBookId = this.books[this.books.length - 1].id + 1;
+    activateAddRequest();
+    setTimeout(() => {
+      this.books.push({ id: newBookId, ...newBook });
+      closeModal();
+      disableAddRequest();
+    }, 2000);
+  }
+
+  @action editBook = (newBook, closeModal, activateAddRequest, disableAddRequest) => {
+    activateAddRequest();
+    const currentBookId = newBook;
+    setTimeout(() => {
+      this.books
+        .filter((book) => book.id !== currentBookId)
+        .push(newBook)
+        .sort((a, b) => a.id - b.id);
+      closeModal();
+      disableAddRequest();
+    }, 2000);
   }
 
   @action deleteBook = (id) => {

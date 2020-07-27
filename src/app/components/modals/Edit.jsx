@@ -1,48 +1,73 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+import { observer, inject } from 'mobx-react';
+
+import Book from '../../stores/bookModel';
+
+@inject('store')
+@observer
 
 class Edit extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      id: this.props.book.id,
-      title: this.props.book.title,
-      author: this.props.book.author,
-      cost: this.props.book.cost,
-      year: this.props.book.year,
-      status: this.props.book.status,
-    };
+  book = new Book();
+
+  componentDidMount = () => {
+    const {
+      setTitle,
+      setAuthor,
+      setCost,
+      setYear,
+      setStatus,
+    } = this.book;
+
+    setTitle(this.props.book.title);
+    setAuthor(this.props.book.author);
+    setCost(this.props.book.cost);
+    setYear(this.props.book.year);
+    setStatus(this.props.book.status);
   }
 
-  onChange = (type) => ({ target }) => {
-    const { value } = target;
-    this.setState({ ...this.state, [type]: value });
+  onChangeTitle = ({ target }) => {
+    const { setTitle } = this.book;
+    setTitle(target.value);
+  }
+
+  onChangeAuthor = ({ target }) => {
+    const { setAuthor } = this.book;
+    setAuthor(target.value);
+  }
+
+  onChangeCost = ({ target }) => {
+    const { setCost } = this.book;
+    setCost(target.value);
+  }
+
+  onChangeYear = ({ target }) => {
+    const { setYear } = this.book;
+    setYear(target.value);
+  }
+
+  onChangeStatus = ({ target }) => {
+    const { setStatus } = this.book;
+    setStatus(target.value);
   }
 
   onSubmit = () => (e) => {
     e.preventDefault();
-    const { onClose, changeBook } = this.props;
-    const newBook = { ...this.state };
-    changeBook({ newBook });
-    onClose();
+    const { id } = this.props.book;
+    const { hideEditModal, activateUserRequest, disableUserRequest } = this.props.store.uiStore;
+    const { editBook } = this.props.store.booksStore;
+    const newBook = this.book.getBook();
+    editBook({ id, ...newBook }, hideEditModal, activateUserRequest, disableUserRequest);
   }
 
-  onCancel = (e) => {
-    e.preventDefault();
-    const { onClose } = this.props;
-    onClose();
+  onCancel = () => {
+    const { hideEditModal } = this.props.store.uiStore;
+    hideEditModal();
   }
 
   render() {
-    const {
-      title,
-      author,
-      cost,
-      year,
-      status,
-    } = this.state;
-
+    console.log(this.props.id);
     return (
       <>
         <div className="modal__header">
@@ -57,9 +82,9 @@ class Edit extends React.PureComponent {
               className='modal__input'
               id='title'
               required
-              value={title}
-              onChange={this.onChange('title')
-            }/>
+              value={this.props.book.title}
+              onChange={this.onChangeTitle}
+            />
           </div>
           <div className="modal__form-group">
             <label htmlFor='author' className='modal__label'>Автор</label>
@@ -68,9 +93,9 @@ class Edit extends React.PureComponent {
               className='modal__input'
               id='author'
               required
-              value={author}
-              onChange={this.onChange('author')
-            }/>
+              value={this.props.book.author}
+              onChange={this.onChangeAuthor}
+            />
           </div>
           <div className="modal__form-group">
             <label htmlFor='cost' className='modal__label'>Стоимость(руб.)</label>
@@ -79,9 +104,9 @@ class Edit extends React.PureComponent {
               className='modal__input'
               id='cost'
               required
-              value={cost}
-              onChange={this.onChange('cost')
-            }/>
+              value={this.props.book.cost}
+              onChange={this.onChangeCost}
+            />
           </div>
           <div className="modal__form-group">
             <label htmlFor='year' className='modal__label'>Дата выпуска</label>
@@ -90,20 +115,25 @@ class Edit extends React.PureComponent {
               className='modal__input'
               id='year'
               required
-              value={year}
-              onChange={this.onChange('year')
-            }/>
+              value={this.props.book.year}
+              onChange={this.onChangeYear}
+            />
           </div>
           <div className="modal__form-group">
             <label htmlFor='status' className='modal__label'>Статус</label>
-            <select className='modal__input' id='status' required value={status} onChange={this.onChange('status')}>
-              <option value='В наличии'>В наличии</option>
-              <option value='Нет в наличии'>Нет в наличии</option>
+            <select
+              className='modal__input'
+              id='status'
+              required
+              value={this.props.book.status}
+              onChange={this.onChangeStatus}>
+                <option value='В наличии'>В наличии</option>
+                <option value='Нет в наличии'>Нет в наличии</option>
             </select>
           </div>
           <div className="button-group">
             <input type='submit' value='Изменить' className='modal__submit' />
-            <input type='submit' value='Отмена' className='modal__submit' onClick={this.onCancel} />
+            <input type='button' value='Отмена' className='modal__submit' onClick={this.onCancel} />
           </div>
         </form>
       </>
