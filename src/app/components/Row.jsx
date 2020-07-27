@@ -24,7 +24,7 @@ class Row extends React.PureComponent {
     const { editModalIsShow } = this.props.store.uiStore;
     const editModal = editModalIsShow ? (
       <Portal>
-        <Edit id={book.id}/>
+        <Edit book={book}/>
       </Portal>
     ) : null;
 

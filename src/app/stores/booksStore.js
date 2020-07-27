@@ -38,8 +38,8 @@ export default class BooksStore {
     }, 2000);
   }
 
-  @action editBook = (newBook, closeModal, activateAddRequest, disableAddRequest) => {
-    activateAddRequest();
+  @action editBook = (newBook, closeModal, activateEditRequest, disableEditRequest) => {
+    activateEditRequest();
     const currentBookId = newBook;
     setTimeout(() => {
       this.books
@@ -47,7 +47,7 @@ export default class BooksStore {
         .push(newBook)
         .sort((a, b) => a.id - b.id);
       closeModal();
-      disableAddRequest();
+      disableEditRequest();
     }, 2000);
   }
 

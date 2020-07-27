@@ -9,7 +9,7 @@ import Book from '../../stores/bookModel';
 @observer
 
 class Edit extends React.PureComponent {
-  book = new Book();
+  bookStore = new Book();
 
   componentDidMount = () => {
     const {
@@ -18,7 +18,7 @@ class Edit extends React.PureComponent {
       setCost,
       setYear,
       setStatus,
-    } = this.book;
+    } = this.bookStore;
 
     setTitle(this.props.book.title);
     setAuthor(this.props.book.author);
@@ -28,27 +28,27 @@ class Edit extends React.PureComponent {
   }
 
   onChangeTitle = ({ target }) => {
-    const { setTitle } = this.book;
+    const { setTitle } = this.bookStore;
     setTitle(target.value);
   }
 
   onChangeAuthor = ({ target }) => {
-    const { setAuthor } = this.book;
+    const { setAuthor } = this.bookStore;
     setAuthor(target.value);
   }
 
   onChangeCost = ({ target }) => {
-    const { setCost } = this.book;
+    const { setCost } = this.bookStore;
     setCost(target.value);
   }
 
   onChangeYear = ({ target }) => {
-    const { setYear } = this.book;
+    const { setYear } = this.bookStore;
     setYear(target.value);
   }
 
   onChangeStatus = ({ target }) => {
-    const { setStatus } = this.book;
+    const { setStatus } = this.bookStore;
     setStatus(target.value);
   }
 
@@ -57,17 +57,25 @@ class Edit extends React.PureComponent {
     const { id } = this.props.book;
     const { hideEditModal, activateUserRequest, disableUserRequest } = this.props.store.uiStore;
     const { editBook } = this.props.store.booksStore;
-    const newBook = this.book.getBook();
+    const newBook = this.bookStore.getBook();
     editBook({ id, ...newBook }, hideEditModal, activateUserRequest, disableUserRequest);
   }
 
   onCancel = () => {
-    const { hideEditModal } = this.props.store.uiStore;
-    hideEditModal();
+    const { hideEditModalbyId } = this.props.store.uiStore;
+    const { id } = this.props.book;
+    hideEditModalbyId(id);
   }
 
   render() {
-    console.log(this.props.id);
+    const {
+      title,
+      author,
+      cost,
+      year,
+      status,
+    } = this.props.book;
+
     return (
       <>
         <div className="modal__header">
@@ -82,7 +90,7 @@ class Edit extends React.PureComponent {
               className='modal__input'
               id='title'
               required
-              value={this.props.book.title}
+              value={title}
               onChange={this.onChangeTitle}
             />
           </div>
@@ -93,7 +101,7 @@ class Edit extends React.PureComponent {
               className='modal__input'
               id='author'
               required
-              value={this.props.book.author}
+              value={author}
               onChange={this.onChangeAuthor}
             />
           </div>
@@ -104,7 +112,7 @@ class Edit extends React.PureComponent {
               className='modal__input'
               id='cost'
               required
-              value={this.props.book.cost}
+              value={cost}
               onChange={this.onChangeCost}
             />
           </div>
@@ -115,7 +123,7 @@ class Edit extends React.PureComponent {
               className='modal__input'
               id='year'
               required
-              value={this.props.book.year}
+              value={year}
               onChange={this.onChangeYear}
             />
           </div>
@@ -125,7 +133,7 @@ class Edit extends React.PureComponent {
               className='modal__input'
               id='status'
               required
-              value={this.props.book.status}
+              value={status}
               onChange={this.onChangeStatus}>
                 <option value='В наличии'>В наличии</option>
                 <option value='Нет в наличии'>Нет в наличии</option>

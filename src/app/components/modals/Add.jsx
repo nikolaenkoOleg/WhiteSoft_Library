@@ -9,30 +9,30 @@ import Book from '../../stores/bookModel';
 @observer
 
 class Add extends React.PureComponent {
-  book = new Book();
+  bookStore = new Book();
 
   onChangeTitle = ({ target }) => {
-    const { setTitle } = this.book;
+    const { setTitle } = this.bookStore;
     setTitle(target.value);
   }
 
   onChangeAuthor = ({ target }) => {
-    const { setAuthor } = this.book;
+    const { setAuthor } = this.bookStore;
     setAuthor(target.value);
   }
 
   onChangeCost = ({ target }) => {
-    const { setCost } = this.book;
+    const { setCost } = this.bookStore;
     setCost(target.value);
   }
 
   onChangeYear = ({ target }) => {
-    const { setYear } = this.book;
+    const { setYear } = this.bookStore;
     setYear(target.value);
   }
 
   onChangeStatus = ({ target }) => {
-    const { setStatus } = this.book;
+    const { setStatus } = this.bookStore;
     setStatus(target.value);
   }
 
@@ -40,7 +40,7 @@ class Add extends React.PureComponent {
     e.preventDefault();
     const { addBook } = this.props.store.booksStore;
     const { hideAddModal, activateUserRequest, disableUserRequest } = this.props.store.uiStore;
-    const { getBook } = this.book;
+    const { getBook } = this.bookStore;
     const newBook = getBook();
 
     addBook(newBook, hideAddModal, activateUserRequest, disableUserRequest);
@@ -52,6 +52,14 @@ class Add extends React.PureComponent {
   }
 
   render() {
+    const {
+      title,
+      author,
+      cost,
+      year,
+      status,
+    } = this.props.book;
+
     return (
       <>
         <div className="modal__header">
@@ -70,7 +78,7 @@ class Add extends React.PureComponent {
               className='modal__input'
               id='title'
               required
-              value={this.book.title}
+              value={title}
               onChange={this.onChangeTitle}
             />
           </div>
@@ -81,7 +89,7 @@ class Add extends React.PureComponent {
               className='modal__input'
               id='author'
               required
-              value={this.book.author}
+              value={author}
               onChange={this.onChangeAuthor}
             />
           </div>
@@ -92,7 +100,7 @@ class Add extends React.PureComponent {
               className='modal__input'
               id='cost'
               required
-              value={this.book.cost}
+              value={cost}
               onChange={this.onChangeCost}
             />
           </div>
@@ -103,7 +111,7 @@ class Add extends React.PureComponent {
               className='modal__input'
               id='year'
               required
-              value={this.book.year}
+              value={year}
               onChange={this.onChangeYear}
             />
           </div>
@@ -113,7 +121,7 @@ class Add extends React.PureComponent {
               className='modal__input'
               id='status'
               required
-              value={this.book.status}
+              value={status}
               onChange={this.onChangeStatus}>
                 <option value='В наличии'>В наличии</option>
                 <option value='Нет в наличии'>Нет в наличии</option>
