@@ -85,7 +85,7 @@ class Edit extends React.PureComponent {
     } = this.bookStore;
 
     return (
-      <>
+      <div className="modal__body">
         <div className="modal__header">
           <h3 className='modal__title'>Редактирование книги</h3>
           <FontAwesomeIcon icon={faTimesCircle} className='modal__close' onClick={this.onCancel} />
@@ -152,7 +152,7 @@ class Edit extends React.PureComponent {
             <input type='button' value='Отмена' className='modal__submit' onClick={this.onCancel} />
           </div>
         </form>
-      </>
+      </div>
     );
   }
 }

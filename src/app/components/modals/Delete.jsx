@@ -26,7 +26,7 @@ class Delete extends React.PureComponent {
 
   render() {
     return (
-      <>
+      <div className="modal__body">
         <div className="modal__header">
           <h3 className='modal__title'>Удаление книги</h3>
           <FontAwesomeIcon
@@ -40,7 +40,7 @@ class Delete extends React.PureComponent {
           <input type='button' value='Удалить' className='modal__submit' onClick={this.onDeleteBookHandle}/>
           <input type='button' value='Отмена' className='modal__submit' onClick={this.onCancel} />
         </div>
-      </>
+      </div>
     );
   }
 }

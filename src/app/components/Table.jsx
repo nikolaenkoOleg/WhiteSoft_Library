@@ -3,7 +3,6 @@ import { observer, inject } from 'mobx-react';
 
 import Row from './Row.jsx';
 import Add from './modals/Add.jsx';
-import Portal from './modals/Portal.jsx';
 
 @inject('store')
 @observer
@@ -19,9 +18,9 @@ class Table extends React.PureComponent {
     const { books } = this.props.store.booksStore;
     const { addModalIsShow } = this.props.store.uiStore;
     const addingModal = addModalIsShow ? (
-      <Portal>
+      <div className="modal">
         <Add />
-      </Portal>
+      </div>
     ) : null;
     return (
       <>

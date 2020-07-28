@@ -5,7 +5,6 @@ import { observer, inject } from 'mobx-react';
 
 import Edit from './modals/Edit.jsx';
 import Delete from './modals/Delete.jsx';
-import Portal from './modals/Portal.jsx';
 
 @inject('store')
 @observer
@@ -27,15 +26,15 @@ class Row extends React.PureComponent {
     const { book } = this.props;
     const { booksStateById } = this.props.store.uiStore;
     const editModal = booksStateById[book.id].edit ? (
-      <Portal>
+      <td className="modal">
         <Edit book={book}/>
-      </Portal>
+      </td>
     ) : null;
 
     const deleteModal = booksStateById[book.id].delete ? (
-      <Portal>
+      <td className="modal">
         <Delete book={book}/>
-      </Portal>
+      </td>
     ) : null;
 
     return (

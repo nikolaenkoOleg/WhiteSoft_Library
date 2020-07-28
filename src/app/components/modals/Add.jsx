@@ -66,7 +66,7 @@ class Add extends React.PureComponent {
     } = this.bookStore;
 
     return (
-      <>
+      <div className="modal__body">
         <div className="modal__header">
           <h3 className='modal__title'>Добавление новой книги</h3>
           <FontAwesomeIcon
@@ -137,7 +137,7 @@ class Add extends React.PureComponent {
             <input type='button' value='Отмена' className='modal__submit' onClick={this.onCancel} />
           </div>
         </form>
-      </>
+      </div>
     );
   }
 }
