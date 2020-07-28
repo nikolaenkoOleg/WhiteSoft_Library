@@ -29,7 +29,6 @@ export default class UiState {
   }
 
   @action addBookState = (id) => {
-    console.log('сетапим новую книгу');
     this.booksStateById = { ...this.booksStateById, [id]: { edit: false, delete: false } };
   }
 
