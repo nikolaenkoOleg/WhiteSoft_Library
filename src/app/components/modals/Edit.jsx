@@ -2,6 +2,7 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { observer, inject } from 'mobx-react';
+import cn from 'classnames';
 
 import Book from '../../stores/bookModel';
 
@@ -52,7 +53,7 @@ class Edit extends React.PureComponent {
     setStatus(target.value);
   }
 
-  onSubmit = () => (e) => {
+  onSubmit = (e) => {
     e.preventDefault();
     const { id } = this.props.book;
     const {
@@ -70,8 +71,12 @@ class Edit extends React.PureComponent {
   }
 
   onCancel = () => {
-    const { hideEditModalById } = this.props.store.uiStore;
+    const { hideEditModalById, userRequest } = this.props.store.uiStore;
     const { id } = this.props.book;
+    if (userRequest) {
+      return;
+    }
+
     hideEditModalById(id);
   }
 
@@ -83,14 +88,25 @@ class Edit extends React.PureComponent {
       year,
       status,
     } = this.bookStore;
+    const { userRequest } = this.props.store.uiStore;
+    const editButton = userRequest ? (
+      <div className="spinner"></div>
+    ) : (<input type='submit' value='Изменить' className='modal__submit' />);
 
     return (
       <div className="modal__body">
         <div className="modal__header">
           <h3 className='modal__title'>Редактирование книги</h3>
-          <FontAwesomeIcon icon={faTimesCircle} className='modal__close' onClick={this.onCancel} />
+          <FontAwesomeIcon
+            icon={faTimesCircle}
+            className={cn({
+              modal__close: userRequest === false,
+              'modal-close-disabled': userRequest === true,
+            })}
+            onClick={this.onCancel}
+          />
         </div>
-        <form className='modal__form' onSubmit={this.onSubmit()}>
+        <form className='modal__form' onSubmit={this.onSubmit}>
           <div className="modal__form-group">
             <label htmlFor='title' className='modal__label'>Название</label>
             <input
@@ -100,6 +116,7 @@ class Edit extends React.PureComponent {
               required
               value={title}
               onChange={this.onChangeTitle}
+              disabled={userRequest === true}
             />
           </div>
           <div className="modal__form-group">
@@ -111,6 +128,7 @@ class Edit extends React.PureComponent {
               required
               value={author}
               onChange={this.onChangeAuthor}
+              disabled={userRequest === true}
             />
           </div>
           <div className="modal__form-group">
@@ -122,6 +140,7 @@ class Edit extends React.PureComponent {
               required
               value={cost}
               onChange={this.onChangeCost}
+              disabled={userRequest === true}
             />
           </div>
           <div className="modal__form-group">
@@ -133,6 +152,7 @@ class Edit extends React.PureComponent {
               required
               value={year}
               onChange={this.onChangeYear}
+              disabled={userRequest === true}
             />
           </div>
           <div className="modal__form-group">
@@ -142,14 +162,23 @@ class Edit extends React.PureComponent {
               id='status'
               required
               value={status}
-              onChange={this.onChangeStatus}>
+              onChange={this.onChangeStatus}
+              disabled={userRequest === true}>
                 <option value='В наличии'>В наличии</option>
                 <option value='Нет в наличии'>Нет в наличии</option>
             </select>
           </div>
           <div className="button-group">
-            <input type='submit' value='Изменить' className='modal__submit' />
-            <input type='button' value='Отмена' className='modal__submit' onClick={this.onCancel} />
+            {editButton}
+            <input
+              type='button'
+              value='Отмена'
+              className={cn({
+                modal__submit: userRequest === false,
+                'submit-disabled': userRequest === true,
+              })}
+              onClick={this.onCancel}
+            />
           </div>
         </form>
       </div>

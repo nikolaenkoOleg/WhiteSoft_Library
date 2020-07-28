@@ -32,6 +32,10 @@ export default class UiState {
     this.booksStateById = { ...this.booksStateById, [id]: { edit: false, delete: false } };
   }
 
+  @action deleteBookState = (id) => {
+    delete this.booksStateById[id];
+  }
+
   @action showAddModal = () => {
     this.addModalIsShow = true;
   }

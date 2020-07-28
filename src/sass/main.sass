@@ -110,12 +110,6 @@
     &:hover
       border: 3px solid #999
 
-.modal-hide
-  display: none
-
-.modal-show
-  display: block
-
 .add
   display: block
   width: 150px
@@ -142,3 +136,33 @@
   display: flex
   width: 250px
   justify-content: space-between
+
+.submit-disabled 
+  margin-top: 20px
+  width: 120px
+  height: 40px
+  background: #ada49c
+  border: 1px solid #ada49c
+  border-radius: 5px
+  cursor: unset !important
+
+.modal-close-disabled
+  color: #555555
+  
+.spinner
+  margin-top: 20px
+  width: 30px
+  height: 30px
+  margin-left: 30px
+  border: 4px solid transparent
+  border-left: 3px solid #c9b9ab
+  border-rigth: 3px solid #c9b9ab
+  border-bottom: 3px solid #c9b9ab
+  border-radius: 50px
+  animation: spin 1s linear infinite
+
+@keyframes spin
+  from
+    transform: rotate(0deg)
+  to
+    transform: rotate(360deg)    

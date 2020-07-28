@@ -2,6 +2,7 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { observer, inject } from 'mobx-react';
+import cn from 'classnames';
 
 import Book from '../../stores/bookModel';
 
@@ -52,7 +53,11 @@ class Add extends React.PureComponent {
   }
 
   onCancel = () => {
-    const { hideAddModal } = this.props.store.uiStore;
+    const { hideAddModal, userRequest } = this.props.store.uiStore;
+    if (userRequest) {
+      return;
+    }
+
     hideAddModal();
   }
 
@@ -65,13 +70,21 @@ class Add extends React.PureComponent {
       status,
     } = this.bookStore;
 
+    const { userRequest } = this.props.store.uiStore;
+    const addButton = userRequest ? (
+      <div className="spinner"></div>
+    ) : (<input type='submit' value='Добавить' className='modal__submit' />);
+
     return (
       <div className="modal__body">
         <div className="modal__header">
           <h3 className='modal__title'>Добавление новой книги</h3>
           <FontAwesomeIcon
             icon={faTimesCircle}
-            className='modal__close'
+            className={cn({
+              modal__close: userRequest === false,
+              'modal-close-disabled': userRequest === true,
+            })}
             onClick={this.onCancel}
           />
         </div>
@@ -85,6 +98,7 @@ class Add extends React.PureComponent {
               required
               value={title}
               onChange={this.onChangeTitle}
+              disabled={userRequest === true}
             />
           </div>
           <div className="modal__form-group">
@@ -96,6 +110,7 @@ class Add extends React.PureComponent {
               required
               value={author}
               onChange={this.onChangeAuthor}
+              disabled={userRequest === true}
             />
           </div>
           <div className="modal__form-group">
@@ -107,6 +122,7 @@ class Add extends React.PureComponent {
               required
               value={cost}
               onChange={this.onChangeCost}
+              disabled={userRequest === true}
             />
           </div>
           <div className="modal__form-group">
@@ -118,6 +134,7 @@ class Add extends React.PureComponent {
               required
               value={year}
               onChange={this.onChangeYear}
+              disabled={userRequest === true}
             />
           </div>
           <div className="modal__form-group">
@@ -127,14 +144,24 @@ class Add extends React.PureComponent {
               id='status'
               required
               value={status}
-              onChange={this.onChangeStatus}>
+              onChange={this.onChangeStatus}
+              disabled={userRequest === true}>
                 <option value='В наличии'>В наличии</option>
                 <option value='Нет в наличии'>Нет в наличии</option>
             </select>
           </div>
           <div className="button-group">
-            <input type='submit' value='Добавить' className='modal__submit' />
-            <input type='button' value='Отмена' className='modal__submit' onClick={this.onCancel} />
+            {addButton}
+            <input
+              type='button'
+              value='Отмена'
+              className={cn({
+                modal__submit: userRequest === false,
+                'submit-disabled': userRequest === true,
+              })}
+              onClick={this.onCancel}
+              disabled={userRequest === true}
+            />
           </div>
         </form>
       </div>
