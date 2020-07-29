@@ -3,8 +3,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
 import { observer, inject } from 'mobx-react';
 
-import Edit from './modals/Edit.jsx';
-import Delete from './modals/Delete.jsx';
+import Edit from './modals/Edit';
+import Delete from './modals/Delete';
 
 @inject('store')
 @observer

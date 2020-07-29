@@ -1,13 +1,18 @@
 import React from 'react';
 import { observer, inject } from 'mobx-react';
 
-import Row from './Row.jsx';
-import Add from './modals/Add.jsx';
+import Row from './Row';
+import Add from './modals/Add';
+import UiStore  from '../stores/UiStore'
+
+interface Props {
+  store: UiStore
+}
 
 @inject('store')
 @observer
 
-class Table extends React.PureComponent {
+class Table extends React.PureComponent<{}, Props> {
   ckickHandler = (e) => {
     e.preventDefault();
     const { showAddModal } = this.props.store.uiStore;

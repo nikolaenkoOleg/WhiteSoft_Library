@@ -6,8 +6,8 @@ import {
   Route,
 } from 'react-router-dom';
 
-import Table from './Table.jsx';
-import Other from './Other.jsx';
+import Table from './Table';
+import Other from './Other';
 
 const App = () => (
   <Router>
