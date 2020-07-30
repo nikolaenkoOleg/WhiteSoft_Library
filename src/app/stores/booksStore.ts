@@ -28,7 +28,13 @@ export default class BooksStore {
     },
   ];
 
-  @action addBook = (newBook, closeModal, activateAddRequest, disableAddRequest, addBookState) => {
+  @action addBook = (
+    newBook: Function, 
+    closeModal: Function, 
+    activateAddRequest: Function, 
+    disableAddRequest: Function, 
+    addBookState: Function,
+    ) => {
     const newBookId = this.books.length === 0 ? 0 : this.books[this.books.length - 1].id + 1;
     activateAddRequest();
     setTimeout(() => {
@@ -51,11 +57,13 @@ export default class BooksStore {
     }, 2000);
   }
 
-  @action deleteBook = ({ id },
-    hideDeleteModalById,
-    activateUserRequest,
-    disableUserRequest,
-    deleteBookState) => {
+  @action deleteBook = (
+    { id },
+    hideDeleteModalById: Function,
+    activateUserRequest: Function,
+    disableUserRequest: Function,
+    deleteBookState: Function
+    ) => {
     activateUserRequest();
     setTimeout(() => {
       this.books = this.books.filter((book) => book.id !== id);

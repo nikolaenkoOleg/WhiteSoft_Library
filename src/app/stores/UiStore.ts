@@ -1,11 +1,45 @@
 import { observable, action } from 'mobx';
 
+
+interface booksStateById {
+  id: number,
+  state: {
+    editable: boolean,
+    removable: boolean,
+  },
+}
+
 export default class UiState {
-  @observable addModalIsShow = false;
+  @observable addModalIsShow: boolean = false;
 
-  @observable userRequest = false;
+  @observable userRequest: boolean = false;
 
-  @observable booksStateById = {
+  // @observable booksStateById: booksStateById[] = [
+  //   {
+  //     id: 0,
+  //     state: {
+  //       editable: false,
+  //       removable: false,
+  //     }
+  //   },
+  //   {
+  //     id: 1,
+  //     state: {
+  //       editable: false,
+  //       removable: false,
+  //     }
+  //   },
+  //   {
+  //     id: 2,
+  //     state: {
+  //       editable: false,
+  //       removable: false,
+  //     }
+  //   },
+  // ];
+
+  @observable booksStateById: object = {
+    
     0: {
       edit: false,
       delete: false,
@@ -28,11 +62,19 @@ export default class UiState {
     this.userRequest = false;
   }
 
-  @action addBookState = (id) => {
-    this.booksStateById = { ...this.booksStateById, [id]: { edit: false, delete: false } };
+  @action addBookState = (id: number) => {
+    const bookState = {
+      id,
+      state: {
+        editable: false,
+        removable: false,
+      }
+    }
+
+    this.booksStateById.push(bookState);
   }
 
-  @action deleteBookState = (id) => {
+  @action deleteBookState = (id: number) => {
     delete this.booksStateById[id];
   }
 
@@ -44,19 +86,19 @@ export default class UiState {
     this.addModalIsShow = false;
   }
 
-  @action showEditModalById = (id) => {
-    this.booksStateById[id].edit = true;
+  @action showEditModalById = (id: number) => {
+    
   }
 
-  @action hideEditModalById = (id) => {
+  @action hideEditModalById = (id: number) => {
     this.booksStateById[id].edit = false;
   }
 
-  @action showDeleteModalById = (id) => {
+  @action showDeleteModalById = (id: number) => {
     this.booksStateById[id].delete = true;
   }
 
-  @action hideDeleteModalById = (id) => {
+  @action hideDeleteModalById = (id: number) => {
     this.booksStateById[id].delete = false;
   }
 }
