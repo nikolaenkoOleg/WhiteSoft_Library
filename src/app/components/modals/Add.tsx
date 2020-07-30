@@ -4,37 +4,45 @@ import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { observer, inject } from 'mobx-react';
 import cn from 'classnames';
 
-import Book from '../../stores/bookModel';
+import BookModel from '../../stores/bookModel';
+
+import { Book } from '../../stores/booksStore';
+import MainStore from '../../stores';
+
+interface Props {
+  book: Book,
+  store: MainStore
+}
 
 @inject('store')
 @observer
 
-class Add extends React.PureComponent {
-  bookStore = new Book();
+class Add extends React.PureComponent<Props, {}> {
+  bookStore = new BookModel();
 
-  onChangeTitle = ({ target }) => {
+  onChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { setTitle } = this.bookStore;
-    setTitle(target.value);
+    setTitle(e.target.value);
   }
 
-  onChangeAuthor = ({ target }) => {
+  onChangeAuthor = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { setAuthor } = this.bookStore;
-    setAuthor(target.value);
+    setAuthor(e.target.value);
   }
 
-  onChangeCost = ({ target }) => {
+  onChangeCost = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { setCost } = this.bookStore;
-    setCost(target.value);
+    setCost(e.target.value);
   }
 
-  onChangeYear = ({ target }) => {
+  onChangeYear = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { setYear } = this.bookStore;
-    setYear(target.value);
+    setYear(parseInt(e.target.value, 10));
   }
 
-  onChangeStatus = ({ target }) => {
+  onChangeStatus = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { setStatus } = this.bookStore;
-    setStatus(target.value);
+    setStatus(e.target.value);
   }
 
   onSubmit = (e) => {

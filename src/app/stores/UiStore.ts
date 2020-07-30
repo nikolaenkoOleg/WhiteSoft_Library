@@ -1,7 +1,6 @@
 import { observable, action } from 'mobx';
 
-
-interface booksStateById {
+interface State {
   id: number,
   state: {
     editable: boolean,
@@ -14,45 +13,29 @@ export default class UiState {
 
   @observable userRequest: boolean = false;
 
-  // @observable booksStateById: booksStateById[] = [
-  //   {
-  //     id: 0,
-  //     state: {
-  //       editable: false,
-  //       removable: false,
-  //     }
-  //   },
-  //   {
-  //     id: 1,
-  //     state: {
-  //       editable: false,
-  //       removable: false,
-  //     }
-  //   },
-  //   {
-  //     id: 2,
-  //     state: {
-  //       editable: false,
-  //       removable: false,
-  //     }
-  //   },
-  // ];
-
-  @observable booksStateById: object = {
-    
-    0: {
-      edit: false,
-      delete: false,
+  @observable booksStateById: State[] = [
+    {
+      id: 0,
+      state: {
+        editable: false,
+        removable: false,
+      }
     },
-    1: {
-      edit: false,
-      delete: false,
+    {
+      id: 1,
+      state: {
+        editable: false,
+        removable: false,
+      }
     },
-    2: {
-      edit: false,
-      delete: false,
+    {
+      id: 2,
+      state: {
+        editable: false,
+        removable: false,
+      }
     },
-  };
+  ];
 
   @action activateUserRequest = () => {
     this.userRequest = true;
@@ -87,18 +70,66 @@ export default class UiState {
   }
 
   @action showEditModalById = (id: number) => {
-    
+    this.booksStateById.map((state) => {
+      if (state.id === id) {
+        return {
+          id,
+          state: {
+            editable: true,
+            removable: false,
+          },
+        }
+      }
+
+      return state;
+    })
   }
 
   @action hideEditModalById = (id: number) => {
-    this.booksStateById[id].edit = false;
+    this.booksStateById.map((state) => {
+      if (state.id === id) {
+        return {
+          id,
+          state: {
+            editable: false,
+            removable: false,
+          },
+        }
+      }
+
+      return state;
+    })
   }
 
   @action showDeleteModalById = (id: number) => {
-    this.booksStateById[id].delete = true;
+    this.booksStateById.map((state) => {
+      if (state.id === id) {
+        return {
+          id,
+          state: {
+            editable: false,
+            removable: true,
+          },
+        }
+      }
+
+      return state;
+    })
   }
 
   @action hideDeleteModalById = (id: number) => {
-    this.booksStateById[id].delete = false;
+    this.booksStateById.map((state) => {
+      if (state.id === id) {
+        return {
+          id,
+          state: {
+            editable: false,
+            removable: false,
+          },
+        }
+      }
+
+      return state;
+    })
   }
 }

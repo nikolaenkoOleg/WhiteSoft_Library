@@ -4,10 +4,18 @@ import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { observer, inject } from 'mobx-react';
 import cn from 'classnames';
 
+import { Book } from '../../stores/booksStore';
+import MainStore from '../../stores';
+
+interface Props {
+  book: Book,
+  store: MainStore
+}
+
 @inject('store')
 @observer
 
-class Delete extends React.PureComponent {
+class Delete extends React.PureComponent<Props, {}> {
   onCancel = () => {
     const { hideDeleteModalById, userRequest } = this.props.store.uiStore;
     const { id } = this.props.book;
@@ -27,11 +35,13 @@ class Delete extends React.PureComponent {
       deleteBookState,
     } = this.props.store.uiStore;
 
-    deleteBook(this.props.book,
+    deleteBook(
+      this.props.book.id,
       hideDeleteModalById,
       activateUserRequest,
       disableUserRequest,
-      deleteBookState);
+      deleteBookState
+    );
   }
 
   render() {
