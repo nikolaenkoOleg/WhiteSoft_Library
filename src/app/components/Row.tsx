@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
 import { observer, inject } from 'mobx-react';
@@ -17,7 +17,7 @@ interface Props {
 @inject('store')
 @observer
 
-class Row extends React.PureComponent<Props, {}> {
+class Row extends React.PureComponent<Props, unknown> {
   onEditHandle = (): void => {
     const { showEditModalById } = this.props.store.uiStore;
     const { id } = this.props.book;
@@ -30,18 +30,18 @@ class Row extends React.PureComponent<Props, {}> {
     showDeleteModalById(id);
   }
 
-  render() {
+  render(): ReactElement {
     const { book } = this.props;
     const { booksStateById } = this.props.store.uiStore;
     const booksState = booksStateById.find((state) => state.id === book.id);
 
-    const editModal = booksState!.state.editable ? (
+    const editModal = booksState?.state.editable ? (
       <td className="modal">
         <Edit book={book} store={this.props.store}/>
       </td>
     ) : null;
 
-    const deleteModal = booksState!.state.removable ? (
+    const deleteModal = booksState?.state.removable ? (
       <td className="modal">
         <Delete book={book} store={this.props.store}/>
       </td>

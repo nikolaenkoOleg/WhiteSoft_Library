@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { observer, inject } from 'mobx-react';
@@ -17,10 +17,10 @@ interface Props {
 @inject('store')
 @observer
 
-class Edit extends React.PureComponent<Props, {}> {
+class Edit extends React.PureComponent<Props, unknown> {
   bookStore = new BookModel();
 
-  componentDidMount = () => {
+  componentDidMount = (): void => {
     const {
       setTitle,
       setAuthor,
@@ -83,7 +83,7 @@ class Edit extends React.PureComponent<Props, {}> {
     editBook(editedBook, hideEditModalById, activateUserRequest, disableUserRequest);
   }
 
-  onCancel = () => {
+  onCancel = (): void => {
     const { hideEditModalById, userRequest } = this.props.store.uiStore;
     const { id } = this.props.book;
     if (userRequest) {
@@ -93,7 +93,7 @@ class Edit extends React.PureComponent<Props, {}> {
     hideEditModalById(id);
   }
 
-  render() {
+  render(): ReactElement {
     const {
       title,
       author,

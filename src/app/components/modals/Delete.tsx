@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { observer, inject } from 'mobx-react';
@@ -15,7 +15,7 @@ interface Props {
 @inject('store')
 @observer
 
-class Delete extends React.PureComponent<Props, {}> {
+class Delete extends React.PureComponent<Props, unknown> {
   onCancel = (): void => {
     const { hideDeleteModalById, userRequest } = this.props.store.uiStore;
     const { id } = this.props.book;
@@ -44,7 +44,7 @@ class Delete extends React.PureComponent<Props, {}> {
     );
   }
 
-  render() {
+  render(): ReactElement {
     const { userRequest } = this.props.store.uiStore;
     const deleteButton = userRequest ? (
       <div className="spinner"></div>

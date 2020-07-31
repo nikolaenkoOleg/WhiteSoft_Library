@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { observer, inject } from 'mobx-react';
@@ -15,7 +15,7 @@ interface Props {
 @inject('store')
 @observer
 
-class Add extends React.PureComponent<Props, {}> {
+class Add extends React.PureComponent<Props, unknown> {
   bookStore = new BookModel();
 
   onChangeTitle = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -73,7 +73,7 @@ class Add extends React.PureComponent<Props, {}> {
     hideAddModal();
   }
 
-  render() {
+  render(): ReactElement {
     const {
       title,
       author,

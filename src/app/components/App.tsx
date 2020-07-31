@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 
 import {
   BrowserRouter as Router,
@@ -9,7 +9,7 @@ import {
 import Table from './Table';
 import Other from './Other';
 
-const App = () => (
+const App = (): ReactElement => (
   <Router>
     <Switch>
       <Route exact path="/" component={Table} />

@@ -1,37 +1,37 @@
 import { observable, action } from 'mobx';
 
 export default class Book {
-  @observable title: string = '';
+  @observable title = '';
 
-  @observable author: string = '';
+  @observable author = '';
 
-  @observable cost: number = 0;
+  @observable cost = 0;
 
-  @observable year: number = 0;
+  @observable year = 0;
 
-  @observable status: string = 'В наличии';
+  @observable status = 'В наличии';
 
-  @action setTitle = (title: string) => {
+  @action setTitle = (title: string): void => {
     this.title = title;
   }
 
-  @action setAuthor = (author: string) => {
+  @action setAuthor = (author: string): void => {
     this.author = author;
   }
 
-  @action setCost = (cost: number) => {
+  @action setCost = (cost: number): void => {
     this.cost = cost;
   }
 
-  @action setYear = (year: number) => {
+  @action setYear = (year: number): void => {
     this.year = year;
   }
 
-  @action setStatus = (status: string) => {
+  @action setStatus = (status: string): void => {
     this.status = status;
   }
 
-  @action getBook = () => ({
+  @action getBook = (): Record<string, unknown> => ({
     title: this.title,
     author: this.author,
     cost: this.cost,

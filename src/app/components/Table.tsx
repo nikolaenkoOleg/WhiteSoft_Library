@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { observer, inject } from 'mobx-react';
 
 import Row from './Row';
@@ -13,14 +13,14 @@ interface Props {
 @inject('store')
 @observer
 
-class Table extends React.PureComponent<Props, {}> {
+class Table extends React.PureComponent<Props, unknown> {
   ckickHandler = (e: React.MouseEvent<HTMLAnchorElement>): void => {
     e.preventDefault();
     const { showAddModal } = this.props.store.uiStore;
     showAddModal();
   }
 
-  render() {
+  render(): ReactElement {
     const { books } = this.props.store.booksStore;
     const { addModalIsShow } = this.props.store.uiStore;
     const addingModal = addModalIsShow ? (

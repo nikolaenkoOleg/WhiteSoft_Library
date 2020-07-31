@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
+/* eslint-disable no-undef */
+
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
@@ -14,18 +17,12 @@ module.exports = {
   module: {
     rules: [
       {
-        enforce: 'pre',
         test: /\.(ts|tsx)$/,
         exclude: /node_modules/,
         use: [
           { loader: 'eslint-loader' },
-          { loader: 'ts-loader' },
+          { loader: 'babel-loader' },
         ],
-      },
-      {
-        test: /\.(ts|tsx)$/,
-        exclude: /node_modules/,
-        loader: 'ts-loader',
       },
       {
         test: /\.(sass|scss|css)$/i,

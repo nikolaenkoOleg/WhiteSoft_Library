@@ -7,11 +7,12 @@ import MainStore from './stores/index';
 
 const store = new MainStore();
 
-export default () => {
+const app = () => {
   render(
     <Provider store={store}>
-      <App/>
+      <App />
     </Provider>,
-    document.querySelector('.root'),
-  );
+    document.querySelector('.root'));
 };
+
+export default app;
