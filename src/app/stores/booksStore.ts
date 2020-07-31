@@ -38,36 +38,36 @@ export default class BooksStore {
   ];
 
   @action addBook = (
-    book: Book, 
-    closeModal: Function, 
-    activateAddRequest: Function, 
-    disableAddRequest: Function, 
+    book: Book,
+    closeModal: Function,
+    activateAddRequest: Function,
+    disableAddRequest: Function,
     addBookState: Function,
-    ) => {
-      activateAddRequest();
-      setTimeout(() => {
-        addBookState(book.id);
-        this.books.push(book);
-        disableAddRequest();
-        closeModal();
-      }, 2000);
+  ) => {
+    activateAddRequest();
+    setTimeout(() => {
+      addBookState(book.id);
+      this.books.push(book);
+      disableAddRequest();
+      closeModal();
+    }, 2000);
   }
 
   @action editBook = (
-    newBook: Book, 
-    hideEditModalById: Function, 
-    activateUserRequest: Function, 
+    newBook: Book,
+    hideEditModalById: Function,
+    activateUserRequest: Function,
     disableUserRequest: Function,
-    ) => {
-      activateUserRequest();
-      const currentBookId = newBook.id;
-      setTimeout(() => {
-        this.books = this.books.filter((book) => book.id !== currentBookId);
-        this.books.push(newBook);
-        this.books = this.books.sort((a, b) => a.id - b.id);
-        disableUserRequest();
-        hideEditModalById(currentBookId);
-      }, 2000);
+  ) => {
+    activateUserRequest();
+    const currentBookId = newBook.id;
+    setTimeout(() => {
+      this.books = this.books.filter((book) => book.id !== currentBookId);
+      this.books.push(newBook);
+      this.books = this.books.sort((a, b) => a.id - b.id);
+      disableUserRequest();
+      hideEditModalById(currentBookId);
+    }, 2000);
   }
 
   @action deleteBook = (
@@ -75,14 +75,14 @@ export default class BooksStore {
     hideDeleteModalById: Function,
     activateUserRequest: Function,
     disableUserRequest: Function,
-    deleteBookState: Function
-    ) => {
-      activateUserRequest();
-      setTimeout(() => {
-        this.books = this.books.filter((book) => book.id !== id);
-        deleteBookState(id);
-        disableUserRequest();
-        hideDeleteModalById(id);
-      }, 2000);
+    deleteBookState: Function,
+  ) => {
+    activateUserRequest();
+    setTimeout(() => {
+      this.books = this.books.filter((book) => book.id !== id);
+      deleteBookState(id);
+      disableUserRequest();
+      hideDeleteModalById(id);
+    }, 2000);
   }
 }

@@ -4,7 +4,7 @@ import { observer, inject } from 'mobx-react';
 import Row from './Row';
 import Add from './modals/Add';
 
-import MainStore  from '../stores/'
+import MainStore from '../stores';
 
 interface Props {
   store: MainStore

@@ -40,7 +40,7 @@ class Delete extends React.PureComponent<Props, {}> {
       hideDeleteModalById,
       activateUserRequest,
       disableUserRequest,
-      deleteBookState
+      deleteBookState,
     );
   }
 

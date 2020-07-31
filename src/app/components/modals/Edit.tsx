@@ -4,7 +4,7 @@ import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { observer, inject } from 'mobx-react';
 import cn from 'classnames';
 
-import bookModel from '../../stores/bookModel';
+import BookModel from '../../stores/bookModel';
 
 import { Book } from '../../stores/booksStore';
 import MainStore from '../../stores';
@@ -18,7 +18,7 @@ interface Props {
 @observer
 
 class Edit extends React.PureComponent<Props, {}> {
-  bookStore = new bookModel();
+  bookStore = new BookModel();
 
   componentDidMount = () => {
     const {

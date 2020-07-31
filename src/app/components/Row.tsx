@@ -6,7 +6,7 @@ import { observer, inject } from 'mobx-react';
 import Edit from './modals/Edit';
 import Delete from './modals/Delete';
 
-import { Book } from '.././stores/booksStore';
+import { Book } from '../stores/booksStore';
 import MainStore from '../stores';
 
 interface Props {

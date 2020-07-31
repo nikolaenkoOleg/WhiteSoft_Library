@@ -56,11 +56,11 @@ class Add extends React.PureComponent<Props, {}> {
     const newBookId: number = books.length === 0 ? 0 : books[books.length - 1].id + 1;
 
     addBook(
-      { id: newBookId,...newBook }, 
-      hideAddModal, 
-      activateUserRequest, 
-      disableUserRequest, 
-      addBookState
+      { id: newBookId, ...newBook },
+      hideAddModal,
+      activateUserRequest,
+      disableUserRequest,
+      addBookState,
     );
   }
 
