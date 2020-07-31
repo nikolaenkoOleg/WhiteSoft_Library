@@ -3,17 +3,18 @@ import { observer, inject } from 'mobx-react';
 
 import Row from './Row';
 import Add from './modals/Add';
-import UiStore  from '../stores/UiStore'
+
+import MainStore  from '../stores/'
 
 interface Props {
-  store: UiStore
+  store: MainStore
 }
 
 @inject('store')
 @observer
 
-class Table extends React.PureComponent<{}, Props> {
-  ckickHandler = (e) => {
+class Table extends React.PureComponent<Props, {}> {
+  ckickHandler = (e: React.MouseEvent<HTMLAnchorElement>): void => {
     e.preventDefault();
     const { showAddModal } = this.props.store.uiStore;
     showAddModal();
@@ -24,7 +25,7 @@ class Table extends React.PureComponent<{}, Props> {
     const { addModalIsShow } = this.props.store.uiStore;
     const addingModal = addModalIsShow ? (
       <div className="modal">
-        <Add />
+        <Add store={this.props.store}/>
       </div>
     ) : null;
     return (
@@ -43,7 +44,7 @@ class Table extends React.PureComponent<{}, Props> {
           <tbody>
             {books.map((book) => (
               <React.Fragment key={book.id}>
-                <Row book={book} modals={this.uiStore}/>
+                <Row book={book} store={this.props.store} />
               </React.Fragment>
             ))}
           </tbody>

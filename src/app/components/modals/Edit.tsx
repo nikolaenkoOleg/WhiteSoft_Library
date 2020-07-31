@@ -4,13 +4,21 @@ import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { observer, inject } from 'mobx-react';
 import cn from 'classnames';
 
-import Book from '../../stores/bookModel';
+import bookModel from '../../stores/bookModel';
+
+import { Book } from '../../stores/booksStore';
+import MainStore from '../../stores';
+
+interface Props {
+  book: Book,
+  store: MainStore
+}
 
 @inject('store')
 @observer
 
-class Edit extends React.PureComponent {
-  bookStore = new Book();
+class Edit extends React.PureComponent<Props, {}> {
+  bookStore = new bookModel();
 
   componentDidMount = () => {
     const {
@@ -28,32 +36,37 @@ class Edit extends React.PureComponent {
     setStatus(this.props.book.status);
   }
 
-  onChangeTitle = ({ target }) => {
+  onChangeTitle = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { setTitle } = this.bookStore;
-    setTitle(target.value);
+    const title = e.target.value;
+    setTitle(title);
   }
 
-  onChangeAuthor = ({ target }) => {
+  onChangeAuthor = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { setAuthor } = this.bookStore;
-    setAuthor(target.value);
+    const authorName = e.target.value;
+    setAuthor(authorName);
   }
 
-  onChangeCost = ({ target }) => {
+  onChangeCost = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { setCost } = this.bookStore;
-    setCost(target.value);
+    const cost = parseInt(e.target.value, 10);
+    setCost(cost);
   }
 
-  onChangeYear = ({ target }) => {
+  onChangeYear = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { setYear } = this.bookStore;
-    setYear(target.value);
+    const year = parseInt(e.target.value, 10);
+    setYear(year);
   }
 
-  onChangeStatus = ({ target }) => {
+  onChangeStatus = (e: React.ChangeEvent<HTMLSelectElement>): void => {
     const { setStatus } = this.bookStore;
-    setStatus(target.value);
+    const status = e.target.value;
+    setStatus(status);
   }
 
-  onSubmit = (e) => {
+  onSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     const { id } = this.props.book;
     const {

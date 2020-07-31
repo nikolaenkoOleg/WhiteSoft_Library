@@ -6,11 +6,9 @@ import cn from 'classnames';
 
 import BookModel from '../../stores/bookModel';
 
-import { Book } from '../../stores/booksStore';
 import MainStore from '../../stores';
 
 interface Props {
-  book: Book,
   store: MainStore
 }
 
@@ -20,47 +18,53 @@ interface Props {
 class Add extends React.PureComponent<Props, {}> {
   bookStore = new BookModel();
 
-  onChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
+  onChangeTitle = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { setTitle } = this.bookStore;
     setTitle(e.target.value);
   }
 
-  onChangeAuthor = (e: React.ChangeEvent<HTMLInputElement>) => {
+  onChangeAuthor = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { setAuthor } = this.bookStore;
     setAuthor(e.target.value);
   }
 
-  onChangeCost = (e: React.ChangeEvent<HTMLInputElement>) => {
+  onChangeCost = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { setCost } = this.bookStore;
-    setCost(e.target.value);
+    setCost(parseInt(e.target.value, 10));
   }
 
-  onChangeYear = (e: React.ChangeEvent<HTMLInputElement>) => {
+  onChangeYear = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { setYear } = this.bookStore;
     setYear(parseInt(e.target.value, 10));
   }
 
-  onChangeStatus = (e: React.ChangeEvent<HTMLInputElement>) => {
+  onChangeStatus = (e: React.ChangeEvent<HTMLSelectElement>): void => {
     const { setStatus } = this.bookStore;
     setStatus(e.target.value);
   }
 
-  onSubmit = (e) => {
+  onSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    const { addBook } = this.props.store.booksStore;
+    const { addBook, books } = this.props.store.booksStore;
     const {
       hideAddModal,
       activateUserRequest,
       disableUserRequest,
       addBookState,
     } = this.props.store.uiStore;
-    const { getBook } = this.bookStore;
-    const newBook = getBook();
+    const newBook = this.bookStore.getBook();
+    const newBookId: number = books.length === 0 ? 0 : books[books.length - 1].id + 1;
 
-    addBook(newBook, hideAddModal, activateUserRequest, disableUserRequest, addBookState);
+    addBook(
+      { id: newBookId,...newBook }, 
+      hideAddModal, 
+      activateUserRequest, 
+      disableUserRequest, 
+      addBookState
+    );
   }
 
-  onCancel = () => {
+  onCancel = (): void => {
     const { hideAddModal, userRequest } = this.props.store.uiStore;
     if (userRequest) {
       return;

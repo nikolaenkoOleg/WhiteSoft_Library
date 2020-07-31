@@ -6,14 +6,27 @@ module.exports = {
     filename: 'bundle.js',
     path: `${__dirname}/dist`,
   },
-  // mode: process.env.NODE_ENV || 'development',
+  mode: process.env.NODE_ENV || 'development',
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx'],
   },
 
   module: {
     rules: [
-      { test: /\.(ts|tsx)$/, exclude: /node_modules/, loader: 'ts-loader' },
+      {
+        enforce: 'pre',
+        test: /\.(ts|tsx)$/,
+        exclude: /node_modules/,
+        use: [
+          { loader: 'eslint-loader' },
+          { loader: 'ts-loader' },
+        ],
+      },
+      {
+        test: /\.(ts|tsx)$/,
+        exclude: /node_modules/,
+        loader: 'ts-loader',
+      },
       {
         test: /\.(sass|scss|css)$/i,
         use: [

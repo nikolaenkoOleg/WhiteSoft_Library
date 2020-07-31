@@ -16,7 +16,7 @@ interface Props {
 @observer
 
 class Delete extends React.PureComponent<Props, {}> {
-  onCancel = () => {
+  onCancel = (): void => {
     const { hideDeleteModalById, userRequest } = this.props.store.uiStore;
     const { id } = this.props.book;
     if (userRequest) {
@@ -26,7 +26,7 @@ class Delete extends React.PureComponent<Props, {}> {
     hideDeleteModalById(id);
   }
 
-  onDeleteBookHandle = () => {
+  onDeleteBookHandle = (): void => {
     const { deleteBook } = this.props.store.booksStore;
     const {
       hideDeleteModalById,

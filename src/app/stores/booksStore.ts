@@ -4,7 +4,7 @@ export interface Book {
   id: number,
   title: string,
   author: string,
-  cost: string,
+  cost: number,
   year: number,
   status: string,
 }
@@ -15,7 +15,7 @@ export default class BooksStore {
       id: 0,
       title: 'Война и мир',
       author: 'Лев Николаевич Толстой',
-      cost: '2200',
+      cost: 2200,
       year: 1867,
       status: 'В наличии',
     },
@@ -23,7 +23,7 @@ export default class BooksStore {
       id: 1,
       title: 'Мастер и Маргарита',
       author: 'Михаил Афанасьевич Булгаков',
-      cost: '1200',
+      cost: 1200,
       year: 1966,
       status: 'Нет в наличии',
     },
@@ -31,7 +31,7 @@ export default class BooksStore {
       id: 2,
       title: 'Униженные и оскорблённые',
       author: 'Фёдор Михайлович Достоевский',
-      cost: '1340',
+      cost: 1340,
       year: 1861,
       status: 'В наличии',
     },
@@ -44,15 +44,10 @@ export default class BooksStore {
     disableAddRequest: Function, 
     addBookState: Function,
     ) => {
-      const newBookId: number = this.books.length === 0 ? 0 : this.books[this.books.length - 1].id + 1;
       activateAddRequest();
       setTimeout(() => {
-        addBookState(newBookId);
-        const newBook: Book = {
-          ...book,
-          id: newBookId,
-        }
-        this.books.push(newBook);
+        addBookState(book.id);
+        this.books.push(book);
         disableAddRequest();
         closeModal();
       }, 2000);

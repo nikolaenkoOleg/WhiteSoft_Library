@@ -5,7 +5,7 @@ export default class Book {
 
   @observable author: string = '';
 
-  @observable cost: string = '';
+  @observable cost: number = 0;
 
   @observable year: number = 0;
 
@@ -19,7 +19,7 @@ export default class Book {
     this.author = author;
   }
 
-  @action setCost = (cost: string) => {
+  @action setCost = (cost: number) => {
     this.cost = cost;
   }
 

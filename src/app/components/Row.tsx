@@ -6,17 +6,25 @@ import { observer, inject } from 'mobx-react';
 import Edit from './modals/Edit';
 import Delete from './modals/Delete';
 
+import { Book } from '.././stores/booksStore';
+import MainStore from '../stores';
+
+interface Props {
+  book : Book,
+  store: MainStore,
+}
+
 @inject('store')
 @observer
 
-class Row extends React.PureComponent {
-  onEditHandle = () => {
+class Row extends React.PureComponent<Props, {}> {
+  onEditHandle = (): void => {
     const { showEditModalById } = this.props.store.uiStore;
     const { id } = this.props.book;
     showEditModalById(id);
   }
 
-  onRemoveHandle = () => {
+  onRemoveHandle = (): void => {
     const { showDeleteModalById } = this.props.store.uiStore;
     const { id } = this.props.book;
     showDeleteModalById(id);
@@ -25,15 +33,17 @@ class Row extends React.PureComponent {
   render() {
     const { book } = this.props;
     const { booksStateById } = this.props.store.uiStore;
-    const editModal = booksStateById[book.id].edit ? (
+    const booksState = booksStateById.find((state) => state.id === book.id);
+
+    const editModal = booksState!.state.editable ? (
       <td className="modal">
-        <Edit book={book}/>
+        <Edit book={book} store={this.props.store}/>
       </td>
     ) : null;
 
-    const deleteModal = booksStateById[book.id].delete ? (
+    const deleteModal = booksState!.state.removable ? (
       <td className="modal">
-        <Delete book={book}/>
+        <Delete book={book} store={this.props.store}/>
       </td>
     ) : null;
 

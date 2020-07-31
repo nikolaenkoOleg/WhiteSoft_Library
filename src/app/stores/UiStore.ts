@@ -58,7 +58,7 @@ export default class UiState {
   }
 
   @action deleteBookState = (id: number) => {
-    delete this.booksStateById[id];
+    this.booksStateById = this.booksStateById.filter((state) => state.id !== id);
   }
 
   @action showAddModal = () => {
@@ -70,7 +70,7 @@ export default class UiState {
   }
 
   @action showEditModalById = (id: number) => {
-    this.booksStateById.map((state) => {
+    this.booksStateById = this.booksStateById.map((state) => {
       if (state.id === id) {
         return {
           id,
@@ -86,7 +86,7 @@ export default class UiState {
   }
 
   @action hideEditModalById = (id: number) => {
-    this.booksStateById.map((state) => {
+    this.booksStateById = this.booksStateById.map((state) => {
       if (state.id === id) {
         return {
           id,
@@ -102,7 +102,7 @@ export default class UiState {
   }
 
   @action showDeleteModalById = (id: number) => {
-    this.booksStateById.map((state) => {
+    this.booksStateById = this.booksStateById.map((state) => {
       if (state.id === id) {
         return {
           id,
@@ -118,7 +118,7 @@ export default class UiState {
   }
 
   @action hideDeleteModalById = (id: number) => {
-    this.booksStateById.map((state) => {
+    this.booksStateById = this.booksStateById.map((state) => {
       if (state.id === id) {
         return {
           id,
