@@ -9,9 +9,6 @@
   },
   "author": "Oleg Nikolaenko",
   "license": "ISC",
-  "scripts": {
-    "eslint": "eslint --cache --ext .js,.jsx,.ts,.tsx src"
-  },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.30",
     "@fortawesome/free-solid-svg-icons": "^5.14.0",
