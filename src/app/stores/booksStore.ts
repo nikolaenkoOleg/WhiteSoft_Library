@@ -38,16 +38,21 @@ export default class BooksStore {
   ];
 
   @action addBook = (
-    book: Book,
+    book: object,
     closeModal: Function,
     activateAddRequest: Function,
     disableAddRequest: Function,
     addBookState: Function,
-  ) => {
+  ): void => {
     activateAddRequest();
     setTimeout(() => {
-      addBookState(book.id);
-      this.books.push(book);
+      const id: number = this.books.length === 0 ? 0 : this.books[this.books.length - 1].id + 1;
+      addBookState(id);
+      const newBook: Book = {
+        id,
+        ...book,
+      };
+      this.books.push(newBook);
       disableAddRequest();
       closeModal();
     }, 2000);
@@ -58,7 +63,7 @@ export default class BooksStore {
     hideEditModalById: Function,
     activateUserRequest: Function,
     disableUserRequest: Function,
-  ) => {
+  ): void => {
     activateUserRequest();
     const currentBookId = newBook.id;
     setTimeout(() => {
@@ -76,7 +81,7 @@ export default class BooksStore {
     activateUserRequest: Function,
     disableUserRequest: Function,
     deleteBookState: Function,
-  ) => {
+  ): void => {
     activateUserRequest();
     setTimeout(() => {
       this.books = this.books.filter((book) => book.id !== id);

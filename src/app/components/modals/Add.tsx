@@ -45,18 +45,17 @@ class Add extends React.PureComponent<Props, unknown> {
 
   onSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    const { addBook, books } = this.props.store.booksStore;
+    const { addBook } = this.props.store.booksStore;
     const {
       hideAddModal,
       activateUserRequest,
       disableUserRequest,
       addBookState,
     } = this.props.store.uiStore;
-    const newBook = this.bookStore.getBook();
-    const newBookId: number = books.length === 0 ? 0 : books[books.length - 1].id + 1;
+    const newBook: object = this.bookStore.getBook();
 
     addBook(
-      { id: newBookId, ...newBook },
+      newBook,
       hideAddModal,
       activateUserRequest,
       disableUserRequest,

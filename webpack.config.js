@@ -11,16 +11,21 @@ module.exports = {
   },
   mode: process.env.NODE_ENV || 'development',
   resolve: {
-    extensions: ['.ts', '.tsx', '.js', '.jsx'],
+    extensions: ['.ts', '.tsx', '.js'],
   },
 
   module: {
     rules: [
       {
+        enforce: 'pre',
+        test: /\.(ts|tsx|js)$/,
+        exclude: /node_modules/,
+        loader: 'eslint-loader',
+      },
+      {
         test: /\.(ts|tsx)$/,
         exclude: /node_modules/,
         use: [
-          { loader: 'eslint-loader' },
           { loader: 'babel-loader' },
         ],
       },

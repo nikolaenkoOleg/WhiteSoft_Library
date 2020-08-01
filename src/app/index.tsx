@@ -7,7 +7,7 @@ import MainStore from './stores/index';
 
 const store = new MainStore();
 
-const app = () => {
+const app = (): void => {
   render(
     <Provider store={store}>
       <App />
